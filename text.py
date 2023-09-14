@@ -2,8 +2,8 @@
 import numpy
 
 # 输入指定年月
-yy = int(input("输入年: "))
-mm = int(input("输入月: "))
+yy = int(input("年: "))
+mm = int(input("月: "))
 
 # 显示日历
 print(calendar.type()th(yy, mm))
