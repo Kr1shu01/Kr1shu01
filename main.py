@@ -1,10 +1,13 @@
-import numpy as np
-import cv2
-
-img = np.zeros((512,512,3),np.uint8)
-cv2.line(img,(0,0),(511,511),(245,0,0),5)
-winname = "example"
-cv2.namedWindow(winname)
-cv2.imshow(winname,img)
-cv2.waitKey(0)
-cv2.destroyWindow(winname)
+import random
+num = random.randint(0,9)
+while True:
+    x = int(input("输入一个1-9的数字\n"))
+    if x > 9 or x < 1 :
+        print("Kidding me??")
+    elif x > num :
+        print("大了哦！再试一次。")
+    elif x < num :
+        print("小了哦！再试一次。")
+    else :
+        print("恭喜哦！猜对了呀！答案是"+str(num))
+        break
