@@ -1,5 +1,5 @@
 import random
-num = random.randint(0,9)
+num = random.randint(1,9)
 while True:
     x = int(input("输入一个1-9的数字\n"))
     if x > 9 or x < 1 :
