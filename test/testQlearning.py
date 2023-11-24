@@ -6,7 +6,7 @@ import time
 gamma = 0.99  # 折扣因子，用于计算未来奖励的当前价值
 alpha = 0.1   # 学习率，用于更新Q值的比例
 epsilon = 0.1  # ε-贪婪策略中的ε值，用于平衡探索和利用
-delay = 0.25   # 更新界面的延迟时间（秒），用于可视化的流畅性
+delay = 0.05   # 更新界面的延迟时间（秒），用于可视化的流畅性
 
 # 环境的状态和动作
 states = range(16)  # 状态集，共16个格子
@@ -53,7 +53,7 @@ for i in range(1, 4):
     canvas.create_line(0, i * 100, 400, i * 100)
 
 # 画网格中的文字，显示起点、伤害和胜利状态
-text_mapping = {0: 'Start', 5: 'Hurt', 7: 'Hurt', 11: 'Hurt', 12: 'Hurt', 15: 'Victory'}
+text_mapping = {0: 'Start', 5: 'Hurt', 6: 'Hurt', 3: 'Hurt', 11: 'Hurt', 12: 'Hurt', 13: 'Hurt', 15: 'Victory'}
 for s, t in text_mapping.items():
     x = (s % 4) * 100 + 50
     y = (s // 4) * 100 + 50
