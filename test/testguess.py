@@ -4,9 +4,9 @@ import tkinter as tk
 class GuessNumberGame:
     def __init__(self, master):
         self.master = master
-        master.title("猜数字游戏")
+        master.title("猜数游戏")
 
-        self.label = tk.Label(master, text="欢迎来到猜数字游戏！请猜一个1到9之间的整数。", font=("Arial", 16))
+        self.label = tk.Label(master, text="欢迎来到猜数游戏！请猜一个1到9之间的整数。", font=("Arial", 16))
         self.label.pack(pady=20)
 
         self.entry = tk.Entry(master)
