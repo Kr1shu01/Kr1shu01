@@ -1,58 +1,53 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# 参数
+# 定义参数
 T1 = 80
-dh = 60  # 假设dh的值为60
-d0 = 0  # d0设为0
+dh = 45
+d0 = 0
+time = np.linspace(0, 2*T1, 1000)  # 时间范围从0到2*T1
 
-# 时间变量tp，从0到2*T1，步长为1
-tp_values = np.arange(0, 2 * T1 + 1, 1)
-uff_values = np.zeros((len(tp_values), 12))
+# 初始化uff数组
+uff = np.zeros((12, len(time)))
 
-# 计算 uff 数组
-for i, tp in enumerate(tp_values):
-    # 第一个周期 0 <= tp <= T1
-    if 0 <= tp <= T1:
-        tp0 = tp
-        uff_values[i, 5] = d0 + dh * (-np.cos(np.pi * 2 * tp0 / T1) + 1) / 2
-        uff_values[i, 4] = d0
-        uff_values[i, 7] = -2 * d0 - 2 * dh * (-np.cos(np.pi * 2 * tp0 / T1) + 1) / 2
-        uff_values[i, 6] = -2 * d0
-        uff_values[i, 11] = d0 - dh * (-np.cos(np.pi * 2 * tp0 / T1) + 1) / 2
-        uff_values[i, 10] = d0
-        uff_values[i, 3] = 0
-        uff_values[i, 9] = 0
-        uff_values[i, 2] = 0
-        uff_values[i, 8] = 0
-    # 第二个周期 T1 < tp < 2*T1
-    elif T1 < tp <= 2 * T1:
-        tp0 = tp
-        uff_values[i, 5] = d0 + dh * (-np.cos(np.pi * 2 * tp0 / T1) + 1) / 2
-        uff_values[i, 4] = d0
-        uff_values[i, 7] = -2 * d0 - 2 * dh * (-np.cos(np.pi * 2 * tp0 / T1) + 1) / 2
-        uff_values[i, 6] = -2 * d0
-        uff_values[i, 11] = d0 - dh * (-np.cos(np.pi * 2 * tp0 / T1) + 1) / 2
-        uff_values[i, 10] = d0
-        uff_values[i, 3] = 0
-        uff_values[i, 9] = 0
-        uff_values[i, 2] = 0
-        uff_values[i, 8] = 0
-    # 重置 tp
-    elif tp > 2 * T1:
+# 计算uff数组每个元素随时间的变化
+for i, tp in enumerate(time):
+    tp0 = tp  # 时间点
+    if tp >= 0 and tp <= T1:  # 时间段 0 到 T1
+        uff[5][i] = d0 + dh * (-np.cos(np.pi * 2 * tp0 / T1) + 1) / 2
+        uff[4][i] = d0
+        uff[7][i] = -2 * d0 - 2 * dh * (-np.cos(np.pi * 2 * tp0 / T1) + 1) / 2
+        uff[6][i] = -2 * d0
+        uff[11][i] = d0 - dh * (-np.cos(np.pi * 2 * tp0 / T1) + 1) / 2
+        uff[10][i] = d0
+        uff[3][i] = 0
+        uff[9][i] = 0
+        uff[2][i] = 0
+        uff[8][i] = 0
+    elif tp > T1 and tp <= 2 * T1:  # 时间段 T1 到 2*T1
+        uff[4][i] = d0 + dh * (-np.cos(np.pi * 2 * tp0 / T1) + 1) / 2
+        uff[5][i] = d0
+        uff[6][i] = -2 * d0 - 2 * dh * (-np.cos(np.pi * 2 * tp0 / T1) + 1) / 2
+        uff[7][i] = -2 * d0
+        uff[10][i] = d0 - dh * (-np.cos(np.pi * 2 * tp0 / T1) + 1) / 2
+        uff[11][i] = d0
+        uff[3][i] = 0
+        uff[9][i] = 0
+        uff[2][i] = 0
+        uff[8][i] = 0
+    else:  # 重置tp
         tp = 0
 
-# 绘制uff数组的不同元素，跳过为0的值
-plt.figure(figsize=(10, 6))
+# 绘制所有uff元素的图形
+plt.figure(figsize=(10, 8))
 
+# 绘制每个uff[0]到uff[11]随时间的变化曲线
 for i in range(12):
-    # 如果uff[i]中有非零值，则绘制
-    if np.any(uff_values[:, i] != 0):
-        plt.plot(tp_values, uff_values[:, i], label=f'uff[{i}]')
+    plt.plot(time, uff[i], label=f'uff[{i}]')
 
 plt.xlabel('Time (tp)')
-plt.ylabel('uff values')
-plt.title('uff values over time (with walk state)')
+plt.ylabel('Joint Position (uff)')
 plt.legend()
+plt.title('Joint Positions Over Time (Walk)')
 plt.grid(True)
 plt.show()
